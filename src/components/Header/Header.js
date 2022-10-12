@@ -31,6 +31,10 @@ export default function Header() {
           <Button color="inherit" href="/signIn">SingIn</Button>
           <Button color="inherit" href="/registroTienda">Registrar</Button>
           <Button color="inherit" href="/tiendas">Tiendas</Button>
+          <Button color="inherit" href="/editHome">EditHome</Button>
+          <Button color="inherit" href="/productos">Productos</Button>
+          <Button color="inherit" href="/mantenimiento">Mantenimiento</Button>
+          <Button color="inherit" href="/">Home</Button>
           <Button color="inherit" href="/home" onClick = {logout}>Logout</Button>
         </Toolbar>
       </AppBar>

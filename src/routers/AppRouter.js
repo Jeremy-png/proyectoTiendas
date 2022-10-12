@@ -15,6 +15,7 @@ import { useContext } from "react";
 import Tiendas from "../components/Tiendas/Tiendas";
 import RegistroProductos from "../components/registroProductos/registroProductos";
 import Mantenimiento from "../components/Mantenimiento/Mantenimiento";
+import EditHome from "../components/EditHome/EditHome";
 export default function AppRouter(){
     
     const{
@@ -31,6 +32,7 @@ export default function AppRouter(){
                 <Route path = "/tiendas" component={Tiendas}/>
                 <Route path = "/productos" component={RegistroProductos}/>
                 <Route path = "/mantenimiento" component={Mantenimiento}/>
+                <Route path = "/editHome" component={EditHome}/>
                 <Redirect path = "*" to = "/home"/>
             </Switch> :
 
@@ -41,6 +43,7 @@ export default function AppRouter(){
             <Route path = "/tiendas" component={Tiendas}/>
             <Route path = "/productos" component={RegistroProductos}/>
             <Route path = "/mantenimiento" component={Mantenimiento}/>
+            <Route path = "/editHome" component={EditHome}/>
             <Redirect path = "*" to = "/home"/>
         </Switch> :
         tipoUsuario == 3?
@@ -49,6 +52,7 @@ export default function AppRouter(){
         <Route path = "/registroTienda" component={RegistroTienda}/>
         <Route path = "/productos" component={RegistroProductos}/>
         <Route path = "/mantenimiento" component={Mantenimiento}/>
+        <Route path = "/editHome" component={EditHome}/>
         <Redirect path = "*" to = "/home"/>
         
     </Switch> :
@@ -60,6 +64,7 @@ export default function AppRouter(){
                 <Route path = "/signIn" component={SignIn}/>
                 <Route path = "/signUp" component={SignUp}/>
                 <Route path = "/productos" component={RegistroProductos}/>
+                <Route path = "/editHome" component={EditHome}/>
                 <Route path = "/mantenimiento" component={Mantenimiento}/>
                 <Redirect path = "*" to = "/home"/>
                     
