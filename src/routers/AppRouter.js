@@ -5,7 +5,7 @@ import {
     Route,
     Redirect
 } from "react-router-dom"
-import Home from "../components/Home/home";
+import Home from "../components/Home/Home";
 import { LoginContext } from "../context/contexto"; //para usar variables de usuario y tipo en la app
 import SignIn from "../components/SignIn/SignIn";
 import SignUp from "../components/SignUp/SignUp";
