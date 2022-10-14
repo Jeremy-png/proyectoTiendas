@@ -1,12 +1,36 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
+import EditBoxHome from "../EditBoxHome/EditBoxHome";
 
 export default function EditHome() {
+  const handleSubmitInfo = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const dataEnviar = {
+      email: data.get('title'),
+      password: data.get('body'),
+    };
+   console.log(dataEnviar); 
+  };
+
+  const handleSubmitIMG = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const dataEnviar = {
+      img1: data.get('img1'),
+      img2: data.get('img2'),
+      img3: data.get('img3'),
+      img4: data.get('img4'),
+      img5: data.get('img5'),
+    };
+   console.log(dataEnviar); 
+  };
     return(
+        <div>
         <div style={{
             "display" : "flex",
         }}>
-            <Box component="form" noValidate  sx={{ mt: 3 }} style={{
+            <Box component="form" onSubmit={handleSubmitInfo} noValidate  sx={{ mt: 3 }} style={{
                 "padding":"2%",
                 "border":"2px #CCC solid",
                 "border-radius": "5px",
@@ -32,7 +56,7 @@ export default function EditHome() {
             </Button>
             </Box>
 
-            <Box component="form" noValidate  sx={{ mt: 3 }} style={{
+            <Box component="form" onSubmit={handleSubmitIMG} noValidate  sx={{ mt: 3 }} style={{
                 "padding":"2%",
                 "border":"2px #CCC solid",
                 "border-radius": "5px",
@@ -40,11 +64,11 @@ export default function EditHome() {
                 "margin": "2%"
             }}>
                 <Typography gutterBottom variant="h4" component="div"> Images</Typography>
-                <label for="file">Img1: </label><input type="file"/><br/>
-                <label for="file">Img2: </label><input type="file"/><br/>
-                <label for="file">Img3: </label><input type="file"/><br/>
-                <label for="file">Img4: </label><input type="file"/><br/>
-                <label for="file">Img5: </label><input type="file"/><br/>
+                <label for="file">Img1: </label><input style={{"width": "90%"}} name="img1" type="text"/><br/>
+                <label for="file">Img2: </label><input style={{"width": "90%"}} name="img2" type="text"/><br/>
+                <label for="file">Img3: </label><input style={{"width": "90%"}} name="img3" type="text"/><br/>
+                <label for="file">Img4: </label><input style={{"width": "90%"}} name="img4" type="text"/><br/>
+                <label for="file">Img5: </label><input style={{"width": "90%"}} name="img5" type="text"/><br/>
                 <Button
               type="submit"
               fullWidth
@@ -54,6 +78,43 @@ export default function EditHome() {
               Edit
             </Button>
             </Box>
+          
+        </div>
+        <div style={{
+          "margin": "2%",
+          "display": "flex"
+        }}>
+          <EditBoxHome 
+          titleBox="1"
+          title= "title1"
+          body="body1"
+          img="img1"
+          / >
+          <EditBoxHome 
+          titleBox="2"
+          title= "title2"
+          body="body2"
+          img="img2"
+          / >
+          <EditBoxHome 
+          titleBox="3"
+          title= "title3"
+          body="body3"
+          img="img3"
+          / >
+          <EditBoxHome 
+          titleBox="4"
+          title= "title4"
+          body="body4"
+          img="img4"
+          / >
+          <EditBoxHome 
+          titleBox="1"
+          title= "title5"
+          body="body5"
+          img="img5"
+          / >
+        </div>
         </div>
     );
 }

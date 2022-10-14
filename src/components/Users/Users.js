@@ -163,10 +163,10 @@ export default function DenseTable() {
                             <TextField id="outlined-basic" variant="outlined" name="password"/> <br/>
                             <h4>id_tipousuario:</h4>
                             <select name="tipoUsuario">
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
+                              <option>Administrador</option>
+                              <option>Empleado</option>
+                              <option>Usuario logueado</option>
+                              <option>Usuario invitado</option>
                             </select>
                             
                         </DialogContent>

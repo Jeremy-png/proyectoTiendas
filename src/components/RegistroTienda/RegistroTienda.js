@@ -60,7 +60,7 @@ export default function RegistroTienda() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
                   name="nombre"
@@ -76,11 +76,21 @@ export default function RegistroTienda() {
                   required
                   fullWidth
                   id="ubicacion"
-                  label="Coordenadas"
+                  label="longitud"
                   name="ubicacion"
                   autoComplete="Coordenadas"
                 />
               </Grid>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="ubicacion"
+                label="latitud"
+                name="ubicacion"
+                autoComplete="Coordenadas"
+              />
+            </Grid>
               <Grid item xs={12}>
                 <TextField
                   required

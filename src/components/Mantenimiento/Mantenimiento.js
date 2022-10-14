@@ -24,18 +24,18 @@ import { MenuItem, Select } from '@mui/material';
 
 export default function Mantenimiento() {
 
-    const row = [
-        {
-        id: 1,
-        categoria: "Prueba1",
-        tipoCategoria: "Prueba"
-        },
-        {
-        id: 1,
-        categoria: "Prueba1",
-        tipoCategoria: "Prueba"
-        }
-]
+  const [row, setRow]=useState([]);
+  React.useEffect(() => {
+    axios.get("http://localhost/proyectoTiendas/categorias.php")
+      .then(response=>{
+        setRow(response.data);
+        
+      }).catch(error=>{
+        console.log(error);
+      });
+      console.log(row);
+
+    }, []);
 
     const [open, setOpen] = React.useState(false);
     const [openD, setOpenD] = React.useState(false);
@@ -67,27 +67,28 @@ export default function Mantenimiento() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-      const datos = {
-        "categoria": data.get('categoria'),
-        "tCategoria": data.get('tCategoria')
+    const dataEnviar = {
+      name : data.get('categoria'),
+      tienda: data.get('tCategoria'),
+      id: localStorage.getItem('categoria')
 
-      };
-      console.log(datos);
+    };
+    console.log(dataEnviar);
     
-    //axios.post('http://localhost/proyectoTiendas/updateusuarios.php',dataEnviar).then(response => console.log(response));
+    axios.post('http://localhost/proyectoTiendas/updateCategoria.php',dataEnviar).then(response => console.log(response));
   };
 
   const crearCategoria = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-      const datos = {
-        "categoria": data.get('categoria'),
-        "tCategoria": data.get('tCategoria')
+      const dataEnviar = {
+        name : data.get('categoria'),
+        tienda: data.get('tCategoria')
 
       };
-      console.log(datos);
+      console.log(dataEnviar);
     
-    //axios.post('http://localhost/proyectoTiendas/updateusuarios.php',dataEnviar).then(response => console.log(response));
+    axios.post('http://localhost/proyectoTiendas/nuevaCategoria.php',dataEnviar).then(response => console.log(response));
   };
 
 
@@ -113,8 +114,8 @@ export default function Mantenimiento() {
               <TableCell component="th" scope="row">
                 {ro.id}
               </TableCell>
-              <TableCell align="right">{ro.categoria}</TableCell>
-              <TableCell align="right">{ro.tipoCategoria}</TableCell>
+              <TableCell align="right">{ro.nombre_categoria}</TableCell>
+              <TableCell align="right">{ro.tienda==1?"Tienda":"Producto"}</TableCell>
               <TableCell align="right"> <Button variant="contained"  onClick={()=>editarCategoria(ro.id)}>Edit</Button></TableCell>
             </TableRow>
             
