@@ -108,15 +108,15 @@ export default function Mantenimiento() {
         <TableBody>
           {row.map((ro) => (
             <TableRow
-              key={ro.id}
+              key={ro.value}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {ro.id}
+                {ro.value}
               </TableCell>
-              <TableCell align="right">{ro.nombre_categoria}</TableCell>
+              <TableCell align="right">{ro.label}</TableCell>
               <TableCell align="right">{ro.tienda==1?"Tienda":"Producto"}</TableCell>
-              <TableCell align="right"> <Button variant="contained"  onClick={()=>editarCategoria(ro.id)}>Edit</Button></TableCell>
+              <TableCell align="right"> <Button variant="contained"  onClick={()=>editarCategoria(ro.value)}>Edit</Button></TableCell>
             </TableRow>
             
           ))}

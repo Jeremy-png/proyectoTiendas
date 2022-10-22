@@ -14,22 +14,25 @@ import axios from 'axios';
 import HomeBox from '../HomeBox/HomeBox';
 import InfoBox from './InfoBox/InfoBox';
 
+
+
+
 const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const dataEnviar = {
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),  
-      correo: data.get('email'),
-      message: data.get('message'),
-    }
-    console.log(dataEnviar);
-    axios({
-      method: 'post',
-      url: 'http://localhost/proyectoTiendas/signUp.php',
-      data: dataEnviar
-    })
-  };
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const dataEnviar = {
+    firstName: data.get('firstName'),
+    lastName: data.get('lastName'),  
+    correo: data.get('email'),
+    message: data.get('message'),
+  }
+  console.log(dataEnviar);
+  axios({
+    method: 'post',
+    url: 'http://localhost/proyectoTiendas/signUp.php',
+    data: dataEnviar
+  })
+};
 
   //Informacion principal
   var boxInfo= {
@@ -66,38 +69,69 @@ const handleSubmit = (event) => {
     img: "/static/images/cards/contemplative-reptile.jpg"
   }
 
-export default class Home extends Component {
+export default function Home () {
 
+  const [datos, setDatos] = React.useState([[]]);
+  const [tiendas, setTiendas] = React.useState([[]]);
+  const [prods, setProds] = React.useState([[]]);
+  
+  React.useEffect(() => {
+    axios.get("http://localhost/proyectoTiendas/homepage.php")
+    .then(response=>{
+      setDatos(response.data);
+      console.log(datos);
+      
+    }).catch(error=>{
+      console.log(error);
+    });
+
+    axios.get("http://localhost/proyectoTiendas/cincoTiendas.php")
+    .then(response=>{
+      setTiendas(response.data);
+      console.log(datos);
+      
+    }).catch(error=>{
+      console.log(error);
+    });
+
+    axios.get("http://localhost/proyectoTiendas/getProductosNuevos.php")
+    .then(response=>{
+      setProds(response.data);
+      console.log(datos);
+      
+    }).catch(error=>{
+      console.log(error);
+    });
+
+  }, []);
 
     
-    render() {
         return (
             <div style={{
                 padding: "1% 5%",
             }}>
-            
-            
+            <h3>Nuestras Mejores Tiendas</h3>
             <Carousel>
+            {tiendas.map((ro) => (
                 <div>
-                    <img src={img1} />
+                    <img src={ro.foto_logo} />
                 </div>
-                <div>
-                    <img src={img2} />
-                </div>
-                <div>
-                    <img src={img3} />
-                </div>
-                <div>
-                    <img src={img1} />
-                </div>
-                <div>
-                    <img src={img1} />
-                </div>
+              ))}
             </Carousel>
 
+            <h3>Nuestros Productos Más Nuevos</h3>
+            <Carousel>
+            {prods.map((ro) => (
+                <div>
+                    <img src={ro.link} />
+                </div>
+              ))}
+            </Carousel>
+
+
             <InfoBox 
-                title= {boxInfo["title"]}
-                body= {boxInfo["body"]}
+                title= {datos[0].titulo}
+                body= {datos[0].contenido}
             />
             <div style={{
                 display: "flex"
@@ -192,6 +226,6 @@ export default class Home extends Component {
             </Button>
           </Box>
             </div>
-        );
-    }
+        );
+
 };

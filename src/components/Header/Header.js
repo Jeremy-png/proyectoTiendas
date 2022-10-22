@@ -70,6 +70,7 @@ export default function Header() {
           <Button color="inherit" href="/productos">Productos</Button>
           <Button color="inherit" href="/mantenimiento">Mantenimiento</Button>
           <Button color="inherit" href="/">Home</Button>
+          <Button color="inherit" href="/catalogoProductos">CatalogoP</Button>
           <Button color="inherit" href="/home" onClick = {logout}>Logout</Button>
         </Toolbar> :
 
@@ -84,6 +85,7 @@ export default function Header() {
           <Button color="inherit" href="/productos">Productos</Button>
           <Button color="inherit" href="/registroTienda">Registrar</Button>
           <Button color="inherit" href="/mantenimiento">Mantenimiento</Button>
+          <Button color="inherit" href="/catalogoProductos">CatalogoP</Button>
           <Button color="inherit" href="/">Home</Button>
           <Button color="inherit" href="/home" onClick = {logout}>Logout</Button>
         </Toolbar>

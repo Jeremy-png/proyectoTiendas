@@ -12,7 +12,7 @@ $method = $_SERVER['REQUEST_METHOD'];
     session_start();    
     $mysqli->set_charset('utf8');
 
-    $sql = "SELECT * FROM categorias; ";
+    $sql = "SELECT nombre_categoria 'label', id 'value', tienda FROM categorias; ";
   
     if ($method == 'GET'){
     $result = mysqli_query($mysqli,$sql);

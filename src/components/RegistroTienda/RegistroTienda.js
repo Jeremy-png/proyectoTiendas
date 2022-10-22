@@ -26,7 +26,8 @@ export default function RegistroTienda() {
     const data = new FormData(event.currentTarget);
     const dataEnviar = {
       nombre: data.get('nombre'),
-      coordenadas: data.get('ubicacion'),  
+      longitud: data.get('longitud'),
+      latitud: data.get('latitud'),   
       link: data.get('link'),
       telefono: data.get('telefono'),
       descripcion: data.get('descripcion'),
@@ -75,9 +76,9 @@ export default function RegistroTienda() {
                 <TextField
                   required
                   fullWidth
-                  id="ubicacion"
+                  id="longitud"
                   label="longitud"
-                  name="ubicacion"
+                  name="longitud"
                   autoComplete="Coordenadas"
                 />
               </Grid>
@@ -85,9 +86,9 @@ export default function RegistroTienda() {
               <TextField
                 required
                 fullWidth
-                id="ubicacion"
+                id="latitud"
                 label="latitud"
-                name="ubicacion"
+                name="latitud"
                 autoComplete="Coordenadas"
               />
             </Grid>
@@ -147,5 +148,5 @@ export default function RegistroTienda() {
         </Box>
       </Container>
     </ThemeProvider>
-  );
+  );
 }

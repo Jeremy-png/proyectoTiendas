@@ -17,31 +17,33 @@ import TextField from '@mui/material/TextField';
 
 import Box from '@mui/material/Box';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { MenuItem, Select } from '@mui/material';
+
+import { MultiSelect } from "react-multi-select-component";
+import { LoginContext } from '../../context/contexto';
+
 
 
 
 export default function RegistroProductos() {
 
-    const row = [
-        {
-        id: 1,
-        producto: "Prueba1",
-        precio: "Prueba1",  
-        descripcion: "Prueba1",
-        },
-        {
-        id: 1,
-        producto: "Prueba1",
-        precio: "Prueba1",  
-        descripcion: "Prueba1",
-        }
-]
+  const{
+    username, setUsername, setTipoUsuario, tipoUsuario
+} = useContext(LoginContext);
+
+
+
+
 
     const [open, setOpen] = React.useState(false);
     const [openD, setOpenD] = React.useState(false);
     const [openN, setOpenN] = React.useState(false);
+    const [selected, setSelected] = useState([]);
+    const [options, setOptions] = useState([]);
+    const [tienda, setTienda] = useState(null);
+    const [row, setRows]=useState([]);
+
 
 
 
@@ -78,34 +80,79 @@ export default function RegistroProductos() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
       const datos = {
-        "producto": data.get('producto'),
+        "nombre": data.get('producto'),
         "precio": data.get('precio'),
         "descripcion": data.get('descripcion'),
+        "img2": data.get('img2'),
+        "img3": data.get('img3'),
+        "img1": data.get('img1'),
+        "idTienda": tienda.id,
+        "categorias": selected,
+        "id": localStorage.getItem("usuario")
 
       };
       console.log(datos);
+      
     
-    //axios.post('http://localhost/proyectoTiendas/updateusuarios.php',dataEnviar).then(response => console.log(response));
+    axios.post('http://localhost/proyectoTiendas/editProducto.php', datos).then(response => console.log(response));
   };
 
   const crearProducto = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-      const datos = {
-        "producto": data.get('producto'),
-        "precio": data.get('precio'),
-        "descripcion": data.get('descripcion'),
+    const datos = {
+      "nombre": data.get('producto'),
+      "precio": data.get('precio'),
+      "descripcion": data.get('descripcion'),
+      "img2": data.get('img2'),
+      "img3": data.get('img3'),
+      "img1": data.get('img1'),
+      "idTienda": tienda.id,
+      "categorias": selected
 
-      };
-      console.log(datos);
-    
-    //axios.post('http://localhost/proyectoTiendas/updateusuarios.php',dataEnviar).then(response => console.log(response));
+    };
+    console.log(datos);
+  
+  axios.post('http://localhost/proyectoTiendas/nuevoProducto.php', datos).then(response => console.log(response));
   };
 
   const elminarUsuarioA = () =>{
       localStorage.removeItem('usuario');
       setOpenD(false);
   };
+
+  React.useEffect(() => {
+    axios.get("http://localhost/proyectoTiendas/categoriasProductos.php")
+      .then(response=>{
+        console.log(response.data);
+        setOptions(response.data);
+        
+      }).catch(error=>{
+        console.log(error);
+      });
+
+      axios.get("http://localhost/proyectoTiendas/getTienda.php", {params: {id: localStorage.getItem('id_usuario')}})
+      .then(response=>{
+        console.log(response.data);
+        setTienda(response.data);
+        
+      }).catch(error=>{
+        console.log(error);
+      });
+
+      axios.get("http://localhost/proyectoTiendas/getProductosAprobados.php")
+      .then(response=>{
+        console.log(response.data);
+        setRows(response.data);
+        
+      }).catch(error=>{
+        console.log(error);
+      });
+
+    
+      //console.log("Tienda: "+tienda.id);
+
+    }, []);
 
   return (
     <TableContainer component={Paper}>
@@ -117,6 +164,7 @@ export default function RegistroProductos() {
             <TableCell align="right">Producto</TableCell>
             <TableCell align="right">Precio</TableCell>
             <TableCell align="right">Descripcion</TableCell>
+            <TableCell align="right">Categorias</TableCell>
             <TableCell align="right"></TableCell>
             <TableCell align="center"></TableCell>
 
@@ -131,9 +179,10 @@ export default function RegistroProductos() {
               <TableCell component="th" scope="row">
                 {ro.id}
               </TableCell>
-              <TableCell align="right">{ro.producto}</TableCell>
+              <TableCell align="right">{ro.nombre}</TableCell>
               <TableCell align="right">{ro.precio}</TableCell>
               <TableCell align="right">{ro.descripcion}</TableCell>
+              <TableCell align="right">{ro.categorias}</TableCell>
               <TableCell align="right"> <Button variant="contained"  onClick={()=>editarUsuario(ro.id)}>Edit</Button>  <Button variant="outlined" onClick={()=>eliminarUsuario(ro.id)}>Del</Button></TableCell>
             </TableRow>
             
@@ -157,7 +206,22 @@ export default function RegistroProductos() {
                             <h4>Precio: </h4>
                             <TextField id="outlined-basic" variant="outlined" name="precio"/> <br/>
                             <h4>Descripcion: </h4>
-                            <TextField id="outlined-basic" variant="outlined" name="descripcion"/> <br/>   
+                            <TextField id="outlined-basic" variant="outlined" name="descripcion"/> <br/>
+                            <h4>Link Imagen 1: </h4>
+                            <TextField id="outlined-basic" variant="outlined" name="img1"/> <br/>
+                            <h4>Link Imagen 2: </h4>
+                            <TextField id="outlined-basic" variant="outlined" name="img2"/> <br/>
+                            <h4>Link Imagen 3: </h4>
+                            <TextField id="outlined-basic" variant="outlined" name="img3"/> <br/>
+                            <h4>Seleccionar Categoría</h4>
+                            <pre>{JSON.stringify(selected)}</pre>
+                            <MultiSelect
+                              options={options}
+                              value={selected}
+                              onChange={setSelected}
+                              labelledBy="Seleccionar"
+                            />
+                               
                         </DialogContent>
                 
             <DialogActions>
@@ -199,12 +263,26 @@ export default function RegistroProductos() {
         </DialogTitle>
         
         <DialogContent>
-                            <h4>Producto: </h4>
-                            <TextField id="outlined-basic" variant="outlined" name="producto"/> <br/>
-                            <h4>Precio: </h4>
-                            <TextField id="outlined-basic" variant="outlined" name="precio"/> <br/>
-                            <h4>Descripcion: </h4>
-                            <TextField id="outlined-basic" variant="outlined" name="descripcion"/> <br/>
+            <h4>ID: {localStorage.getItem("usuario")}</h4>
+            <h4>Producto: </h4>
+            <TextField id="outlined-basic" variant="outlined" name="producto"/> <br/>
+            <h4>Precio: </h4>
+            <TextField id="outlined-basic" variant="outlined" name="precio"/> <br/>
+            <h4>Descripcion: </h4>
+            <TextField id="outlined-basic" variant="outlined" name="descripcion"/> <br/>
+            <h4>Link Imagen 1: </h4>
+            <TextField id="outlined-basic" variant="outlined" name="img1"/> <br/>
+            <h4>Link Imagen 2: </h4>
+            <TextField id="outlined-basic" variant="outlined" name="img2"/> <br/>
+            <h4>Link Imagen 3: </h4>
+            <TextField id="outlined-basic" variant="outlined" name="img3"/> <br/>
+            <h4>Seleccionar Categoría</h4>
+            <MultiSelect
+              options={options}
+              value={selected}
+              onChange={setSelected}
+              labelledBy="Seleccionar"
+            />
 
             </DialogContent>
             <DialogActions>
