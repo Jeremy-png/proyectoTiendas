@@ -1,4 +1,24 @@
-export const getComments = async () => {
+import React,{useState} from "react";
+import axios from 'axios';
+
+
+export const GetComments = async () => {
+
+ const [tiendas, setTiendas]=useState([]);
+    React.useEffect(() => {
+      axios.get("http://localhost/proyectoTiendas/tiendas.php")
+        .then(response=>{
+          console.log(response.data);
+          setTiendas(response.data);
+          
+        }).catch(error=>{
+          console.log(error);
+        });
+        console.log(tiendas);
+
+      }, []);
+
+
     return [
       {
         id: "1",

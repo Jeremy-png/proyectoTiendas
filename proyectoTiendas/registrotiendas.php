@@ -14,7 +14,7 @@ $method = $_SERVER['REQUEST_METHOD'];
     session_start();    
     $mysqli->set_charset('utf8');
 
-	  $nombre = $dataObject-> nombre;
+	$nombre = $dataObject-> nombre;
     $longitud = $dataObject-> longitud;
     $latitud = $dataObject-> latitud;
     $descripcion = $dataObject-> descripcion;

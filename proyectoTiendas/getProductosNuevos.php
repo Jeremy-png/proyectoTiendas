@@ -12,7 +12,7 @@ $method = $_SERVER['REQUEST_METHOD'];
     session_start();    
     $mysqli->set_charset('utf8');
 
-    $sql = "SELECT nombre_categoria 'label', id 'value' FROM categorias; ";
+    $sql = "select * from fotos_productos group by id_producto order by id limit 10;";
   
     if ($method == 'GET'){
     $result = mysqli_query($mysqli,$sql);

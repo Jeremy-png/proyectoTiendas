@@ -14,7 +14,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
     $id = $_GET['id'];
 
-    $sql = "SELECT * FROM productos_aprobados WHERE id = '$id';";
+    $sql = "SELECT * FROM productos_aprobados p INNER JOIN fotos_productos f ON p.id = f.id_producto INNER JOIN categoria_producto cp ON p.id = cp.id_producto INNER JOIN categorias c ON c.id = cp.id_categoria where p.id = '$id'";
   
     if ($method == 'GET'){
     $result = mysqli_query($mysqli,$sql);

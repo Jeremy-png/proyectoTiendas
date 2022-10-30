@@ -15,7 +15,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 	  $name = $dataObject-> name;
     $tienda = $dataObject-> tienda;
 
-    $sql = "INSERT INTO `categorias` (nombre_categoria, tienda) VALUES ('$name', '$tienda');";
+    $sql = "INSERT INTO `categorias`  VALUES ('1', '$name', '$tienda');";
   
     echo $sql;
     if ($method == 'POST'){

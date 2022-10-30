@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import { getComments as getCommentsApi, 
+import { GetComments as getCommentsApi, 
     createComment as createCommentApi, 
     deleteComment as deleteCommentApi,
     updateComment as updateCommentApi} from "../Api";

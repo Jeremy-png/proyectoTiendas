@@ -6,26 +6,33 @@ header("Content-type:application/json");
 $data = json_decode(file_get_contents("php://input"));
 
 $method = $_SERVER['REQUEST_METHOD'];
-    include "coneccion.php";
+    include "coneccion.php"; 
     $mysqli = conectarDB();
-    
+
+	$JSONData = file_get_contents("php://input");
+	$dataObject = json_decode($JSONData);    
     session_start();    
     $mysqli->set_charset('utf8');
 
-    $sql = "SELECT nombre_categoria 'label', id 'value' FROM categorias; ";
+    $id = $dataObject-> id;
+
+    $sql = "call aprobar_producto('$id');";
+   
+    //$sql = "INSERT INTO `usuarios` (`firstName`, `lastName`, `correo`, `contrasena`, `id_tipousuario`) VALUES ('$firstName', '$lastName', '$correo', '$contrasena', '3');";
   
-    if ($method == 'GET'){
+    echo $sql;
+    if ($method == 'POST'){
     $result = mysqli_query($mysqli,$sql);
+
+
+
     }
     
-    if ($method == 'GET') {
-        $resultados = array();
-        while($fila = mysqli_fetch_assoc($result)){
-            $resultados[] = $fila;
-        }
-        echo json_encode($resultados);
+   /* if ($method == 'POST') {
+        echo json_encode($result);
       } else {
         echo mysqli_affected_rows($sql);
-      }
+      }*/
       $mysqli->close();
 ?>
+
