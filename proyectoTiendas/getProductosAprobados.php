@@ -12,7 +12,7 @@ $method = $_SERVER['REQUEST_METHOD'];
     session_start();    
     $mysqli->set_charset('utf8');
 
-    $sql = "select * from (select p.id_producto id, GROUP_CONCAT(c.nombre_categoria SEPARATOR ', ') categorias FROM categoria_producto p inner join categorias c where p.id_categoria = c.id group by id_producto) l inner join productos_aprobados on l.id = productos_aprobados.id;";
+    $sql = "select * from (select p.id_producto id, getLink(p.id_producto, 0) link, GROUP_CONCAT(c.nombre_categoria SEPARATOR ', ') categorias FROM categoria_producto p inner join categorias c where p.id_categoria = c.id group by id_producto) l inner join productos_aprobados on l.id = productos_aprobados.id;";
   
     if ($method == 'GET'){
     $result = mysqli_query($mysqli,$sql);

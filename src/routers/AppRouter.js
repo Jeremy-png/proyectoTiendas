@@ -20,6 +20,9 @@ import EditHome from "../components/EditHome/EditHome";
 import ShowProductPage from "../components/ShowProductPage/ShowProductPage";
 import CatalogoProductosPage from "../components/CatalogoProductosPage/CatalogoProductosPage";
 import AprobarProductos from "../components/ApproveProduct/ApproveProduct";
+import CatalogoTiendas from "../components/CatalogoTiendas/CatalogoTiendas";
+import PaginaTienda from "../components/PaginaTienda/PaginaTienda";
+import AprobarComentarios from "../components/AprobarComentario/AprobarComentarios";
 export default function AppRouter(){
     
     const{
@@ -42,6 +45,9 @@ export default function AppRouter(){
                 <Route path = "/catalogoProductos" component={CatalogoProductosPage}/>
                 <Route path = "/showProduct/:id" component={ShowProductPage}/>
                 <Route path = "/aprobarProductos" component={AprobarProductos}/>
+                <Route path = "/catalogoTiendas" component={CatalogoTiendas}/>
+                <Route exact path = "/showTienda/:id" component={PaginaTienda}/>
+                <Route exact path = "/aprobarComentarios" component={AprobarComentarios}/>
                 <Redirect path = "*" to = "/home"/>
             </Switch> :
 
@@ -56,6 +62,8 @@ export default function AppRouter(){
             <Route path = "/catalogoProductos" component={CatalogoProductosPage}/>
             <Route path = "/showProduct/:id" component={ShowProductPage}/>
             <Route path = "/aprobarProductos" component={AprobarProductos}/>
+            <Route exact path = "/showTienda/:id" component={PaginaTienda}/>
+            <Route exact path = "/aprobarComentarios" component={AprobarComentarios}/>
             <Redirect path = "*" to = "/home"/>
         </Switch> :
         tipoUsuario == 3?
@@ -68,6 +76,9 @@ export default function AppRouter(){
         <Route path = "/catalogoProductos" component={CatalogoProductosPage}/>
         <Route path = "/showProduct/:id" component={ShowProductPage}/>
         <Route path = "/aprobarProductos" component={AprobarProductos}/>
+        <Route path = "/catalogoTiendas" component={CatalogoTiendas}/>
+        <Route exact path = "/showTienda/:id" component={PaginaTienda}/>
+        <Route exact path = "/aprobarComentarios" component={AprobarComentarios}/>
         <Redirect path = "*" to = "/home"/>
         
     </Switch> :
@@ -84,10 +95,13 @@ export default function AppRouter(){
                 <Route path = "/catalogoProductos" component={CatalogoProductosPage}/>
                 <Route path = "/showProduct/:id" component={ShowProductPage}/>
                 <Route path = "/aprobarProductos" component={AprobarProductos}/>
+                <Route path = "/catalogoTiendas" component={CatalogoTiendas}/>
+                <Route exact path = "/showTienda/:id" component={PaginaTienda}/>
+                <Route exact path = "/aprobarComentarios" component={AprobarComentarios}/>
                 <Redirect path = "*" to = "/home"/>
                     
             </Switch>
             }
         </Router>
-    );
+    );
 }

@@ -12,11 +12,19 @@ $method = $_SERVER['REQUEST_METHOD'];
     session_start();    
     $mysqli->set_charset('utf8');
 
-	  $name = $dataObject-> name;
+	  $body = $dataObject-> body;
+    $parentId = $dataObject-> parentId;
+    $userId = $dataObject-> userId;
     $tienda = $dataObject-> tienda;
-    $id = $dataObject-> id;
+    $idProducto = $dataObject-> producto;    //$fecha = $dataObject-> $createdAt;
 
-    $sql = "UPDATE `categorias` SET `nombre_categoria` = '$name', `tienda` = '$tienda' WHERE `categorias`.`id` = '$id';";
+    if($parentId==''){
+      $sql = "INSERT INTO `comentarios_pendientes` (comentario, id_usuario, id_producto, tienda, fecha) VALUES ('$body', '$userId', '$idProducto', '$tienda', now());";
+    }else{
+      $sql = "INSERT INTO `comentarios_pendientes` (comentario_padre, comentario, id_usuario, id_producto, tienda, fecha) VALUES ('$parentId', '$body', '$userId', '$idProducto', '$tienda', now());";
+    }
+
+   
   
     echo $sql;
     if ($method == 'POST'){

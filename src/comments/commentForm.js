@@ -27,7 +27,7 @@ const CommentForm = ({
                 <button type = "button" 
                 className="comment-form-button comment-form-cacnel-button"
                 onClick = {handleCancel}
-                > Cancel </button>
+                > Cancelar </button>
             )}
         </form>
     );

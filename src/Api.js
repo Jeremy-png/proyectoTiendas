@@ -2,21 +2,7 @@ import React,{useState} from "react";
 import axios from 'axios';
 
 
-export const GetComments = async () => {
-
- const [tiendas, setTiendas]=useState([]);
-    React.useEffect(() => {
-      axios.get("http://localhost/proyectoTiendas/tiendas.php")
-        .then(response=>{
-          console.log(response.data);
-          setTiendas(response.data);
-          
-        }).catch(error=>{
-          console.log(error);
-        });
-        console.log(tiendas);
-
-      }, []);
+export const getComments = async () => {
 
 
     return [
@@ -57,11 +43,11 @@ export const GetComments = async () => {
   
   export const createComment = async (text, parentId = null) => {
     return {
-      id: Math.random().toString(36).substr(2, 9),
+      id: Math.floor(Math.random() * 2147483647),
       body: text,
       parentId,
-      userId: "1",
-      username: "John",
+      userId: localStorage.getItem("usuario"),
+      username: localStorage.getItem("usuario"),
       createdAt: new Date().toISOString(),
     };
   };

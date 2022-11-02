@@ -6,9 +6,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default function CatalogoProductosComponent(props) {
+export default function TiendasCard(props) {
 
-   
+
 
     return(
         <div style={{
@@ -19,11 +19,11 @@ export default function CatalogoProductosComponent(props) {
             "padding": "1%",
             "text-align": "center"
         }}>
-            <img style={{"width": "40%"}} src={props.link}/>
+            <img style={{"width": "40%"}} src={props.logo}/>
             <h4>{props.nombre}</h4>
             <p>{props.descripcion}</p>
-            <p><b>Q.{props.precio}.00</b></p>
-            <Link to={`/showProduct/${props.id}`}>
+            <p><b>{"Teléfono: "+ props.telefono}</b></p>
+            <Link to={`/showTienda/${props.id}`}>
                 <Button
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
@@ -32,6 +32,6 @@ export default function CatalogoProductosComponent(props) {
             </Button>
             </Link>
             
-        </div>
+        </div>
     );
 }

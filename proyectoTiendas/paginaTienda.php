@@ -13,23 +13,25 @@ $method = $_SERVER['REQUEST_METHOD'];
     $mysqli->set_charset('utf8');
 
     $id=$_GET['id'];
-    $tienda=$_GET['tienda'];
 
-
-    $sql = "SELECT c.id, c.comentario_padre parentId, c.comentario body, c.tienda, c.fecha createdAt, c.id_usuario, u.firstName username FROM comentarios c inner join usuarios u on c.id_usuario = u.id where c.id_producto = '$id' AND c.tienda='$tienda';";
+    $sql = "SELECT * FROM tiendas where id = '$id'";
   
     if ($method == 'GET'){
     $result = mysqli_query($mysqli,$sql);
+    $count = mysqli_num_rows($result);
     }
     
     if ($method == 'GET') {
-        $resultados = array();
-        while($fila = mysqli_fetch_assoc($result)){
-            $resultados[] = $fila;
+        if ($count == 1){
+            $resultados = array();
+            while($fila = mysqli_fetch_assoc($result)){
+                $resultados[] = $fila;
+                
+            }
+            echo json_encode($resultados[0]);
+        }else{
+            echo json_encode(array('id'=>0));
         }
-        echo json_encode($resultados);
-      } else {
-        echo mysqli_affected_rows($sql);
-      }
+    }
       $mysqli->close();
 ?>

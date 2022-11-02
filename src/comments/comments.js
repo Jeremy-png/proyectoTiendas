@@ -1,16 +1,23 @@
 import {useState, useEffect} from "react";
-import { GetComments as getCommentsApi, 
+import { getComments as getCommentsApi, 
     createComment as createCommentApi, 
     deleteComment as deleteCommentApi,
     updateComment as updateCommentApi} from "../Api";
 import Comment from "./comment";
 import CommentForm from "./commentForm";
+import axios from 'axios';
 
-const Comments = ({currentUserId}) => {
+function Comments (props) {
+
+    const [currentUserId, setCurrentUserId] = useState(localStorage.getItem("id_usuario"));
+
     const [backendComments, setBackendComments] = useState([]);
     const [activeComment, setActiveComment] = useState(null);
     const rootComments = backendComments.filter((backendComment) =>
     backendComment.parentId === null);
+
+
+
     
     const getReplies = commentId => {
         return backendComments.filter(backendComment => 
@@ -22,10 +29,22 @@ const Comments = ({currentUserId}) => {
 
     const addComment = (text, parentId) => {
         console.log('addComment', text, parentId);
-        createCommentApi(text, parentId).then(comment =>{
+        /*createCommentApi(text, parentId).then(comment =>{
             setBackendComments([comment, ...backendComments]);
             setActiveComment(null);
-        });
+        });*/
+
+        const dataEnviar = {
+            body: text,
+            parentId: parentId,
+            userId: localStorage.getItem("id_usuario"),
+            tienda: props.tienda,
+            producto: props.id
+            //createdAt: new Date().toISOString()
+        };
+        console.log(dataEnviar);
+        
+        axios.post('http://localhost/proyectoTiendas/nuevoComentario.php',dataEnviar).then(response => console.log(response));
     };
 
     const deleteComment = (commentId) => {
@@ -53,15 +72,24 @@ const Comments = ({currentUserId}) => {
     };
 
     useEffect(() => {
-        getCommentsApi().then(data => {
-            setBackendComments(data);
-        })
+
+        axios.get("http://localhost/proyectoTiendas/comentarios.php?id="+props.id+"&tienda="+props.tienda)
+        .then(response=>{
+          console.log(response.data);
+          setBackendComments(response.data);
+          
+        }).catch(error=>{
+          console.log(error);
+        });
+        console.log(backendComments);
+        
+        
     }, []);
    return (
     <div className = "comments">
-        <h3 className = "comments-title">Comments</h3>
-        <div className="comment-form-title">Write Comment</div>
-        <CommentForm submitLabel="Write" handleSubmit={addComment}/>
+        <h3 className = "comments-title">Comentarios</h3>
+        <div className="comment-form-title">Escribe un comentario</div>
+        <CommentForm submitLabel="Comentar" handleSubmit={addComment}/>
         <div className = "comments-container">
 {rootComments.map((rootComment) => (
     

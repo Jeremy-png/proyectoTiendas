@@ -14,7 +14,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
     $id = $_GET['id'];
 
-    $sql = "SELECT * FROM productos_aprobados p INNER JOIN fotos_productos f ON p.id = f.id_producto INNER JOIN categoria_producto cp ON p.id = cp.id_producto INNER JOIN categorias c ON c.id = cp.id_categoria where p.id = '$id'";
+    $sql = "SELECT *, getLink(p.id, '0') link, getLink(p.id, '1') link1, getLink(p.id, '2') link2 FROM productos_aprobados p INNER JOIN fotos_productos f ON p.id = f.id_producto INNER JOIN categoria_producto cp ON p.id = cp.id_producto INNER JOIN categorias c ON c.id = cp.id_categoria where p.id = '$id' limit 1";
   
     if ($method == 'GET'){
     $result = mysqli_query($mysqli,$sql);
@@ -25,7 +25,7 @@ $method = $_SERVER['REQUEST_METHOD'];
         while($fila = mysqli_fetch_assoc($result)){
             $resultados[] = $fila;
         }
-        echo json_encode($resultados);
+        echo json_encode($resultados[0]);
       } else {
         echo mysqli_affected_rows($sql);
       }

@@ -64,10 +64,6 @@ function App() {
       <Header/>
       <AppRouter />
       </LoginContext.Provider> 
-      <Comments
-        commentsUrl="http://localhost:3004/comments"
-        currentUserId="1"
-      /> 
       </div>
 
 
@@ -76,5 +72,4 @@ function App() {
 }
 
 
-export default App;
-
+export default App;
