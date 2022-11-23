@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datas>
+    <data>
+        <id>9</id>
+        <tienda>1</tienda>
+        <descripcion>Hola</descripcion>
+        <precio>2</precio>
+        <nombre>lll</nombre>
+        <categoria>1</categoria>
+        <img1>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg</img1>
+        <img2>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg</img2>
+        <img3>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg</img3>
+    </data>
+    <data>
+        <id>111</id>
+        <tienda>1</tienda>
+        <descripcion>Hola</descripcion>
+        <precio>2</precio>
+        <nombre>lll</nombre>
+        <categoria>1</categoria>
+        <img1>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg</img1>
+        <img2>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg</img2>
+        <img3>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg</img3>
+    </data>
+     <data>
+        <id>343</id>
+        <tienda>1</tienda>
+        <descripcion>Hola</descripcion>
+        <precio>2</precio>
+        <nombre>lll</nombre>
+        <categoria>1</categoria>
+        <img1>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg</img1>
+        <img2>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg</img2>
+        <img3>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg</img3>
+    </data>
+</datas>

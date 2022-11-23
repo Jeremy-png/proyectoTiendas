@@ -1,133 +1,85 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import axios from "axios";
 import React from "react";
-import EditBoxHome from "../EditBoxHome/EditBoxHome";
+import { useState } from "react";
+import axios from "axios";
 
-export default function EditHome() {
-  const handleSubmitInfo = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const dataEnviar = {
-      title: data.get('title'),
-      body: data.get('body'),
-    };
-    /*
-    const headers = { 
-      'Access-Control-Allow-Origin': '*',
-    };
-    console.log(dataEnviar);
-    axios.post("http://localhost/proyectoTiendas/homepage.php", {dataEnviar},{headers});
-    */
-    axios({
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      url: 'http://localhost/proyectoTiendas/homepage.php',
-      data: dataEnviar,
-    });
-  };
+export default function EditBoxHome(props) {
+  
+    const [titulo, setTitulo]=useState("");
+    const [cuerpo, setCuerpo]=useState("");
+    const [link, setLink]=useState("");
 
-  const handleSubmitIMG = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const dataEnviar = {
-      img1: data.get('img1'),
-      img2: data.get('img2'),
-      img3: data.get('img3'),
-      img4: data.get('img4'),
-      img5: data.get('img5'),
-    };
-   console.log(dataEnviar); 
-  };
-    return(
-        <div>
-        <div style={{
-            "display" : "flex",
-        }}>
-            <Box component="form" onSubmit={handleSubmitInfo} noValidate  sx={{ mt: 3 }} style={{
-                "padding":"2%",
-                "border":"2px #CCC solid",
-                "border-radius": "5px",
-                "width": "40%",
-                "margin": "2%"
-            }}>
-                <Typography gutterBottom variant="h4" component="div"> Informacion Principal</Typography>
-                <TextField
-                  fullWidth
-                  name="title"
-                  label="Title"/>
-                <TextField
-                  fullWidth
-                  name="body"
-                  label="Body"/>
-                <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Edit
-            </Button>
-            </Box>
 
-            <Box component="form" onSubmit={handleSubmitIMG} noValidate  sx={{ mt: 3 }} style={{
-                "padding":"2%",
-                "border":"2px #CCC solid",
-                "border-radius": "5px",
-                "width": "40%",
-                "margin": "2%"
-            }}>
-                <Typography gutterBottom variant="h4" component="div"> Images</Typography>
-                <label for="file">Img1: </label><input style={{"width": "90%"}} name="img1" type="text"/><br/>
-                <label for="file">Img2: </label><input style={{"width": "90%"}} name="img2" type="text"/><br/>
-                <label for="file">Img3: </label><input style={{"width": "90%"}} name="img3" type="text"/><br/>
-                <label for="file">Img4: </label><input style={{"width": "90%"}} name="img4" type="text"/><br/>
-                <label for="file">Img5: </label><input style={{"width": "90%"}} name="img5" type="text"/><br/>
-                <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Edit
-            </Button>
-            </Box>
+    const handleSubmitBox = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const dataEnviar = {
+          titulo: titulo,
+          cuerpo: cuerpo,
+          link: link,
+          id: props.titleBox
           
-        </div>
+        };
+
+       const url = "http://localhost/proyectoTiendas/editHomeBox.php";
+       
+        axios.post(url, dataEnviar)
+        .then((response)=> {
+            console.log(response);
+           
+        })
+        .catch((response)=> {
+            console.log(response);
+        });
+
+       console.log(dataEnviar); 
+      };
+
+    return(
         <div style={{
-          "margin": "2%",
-          "display": "flex"
+            "border" : "2px #ccc solid",
+            "border-radius": "5px",
+            "width" : "15%",
+            "padding": "0.5% 2%"
         }}>
-          <EditBoxHome 
-          titleBox="1"
-          title= "title1"
-          body="body1"
-          img="img1"
-          / >
-          <EditBoxHome 
-          titleBox="2"
-          title= "title2"
-          body="body2"
-          img="img2"
-          / >
-          <EditBoxHome 
-          titleBox="3"
-          title= "title3"
-          body="body3"
-          img="img3"
-          / >
-          <EditBoxHome 
-          titleBox="4"
-          title= "title4"
-          body="body4"
-          img="img4"
-          / >
-          <EditBoxHome 
-          titleBox="1"
-          title= "title5"
-          body="body5"
-          img="img5"
-          / >
-        </div>
+        <Box component="form" onSubmit={handleSubmitBox} noValidate  sx={{ mt: 3 }}>
+        <h4>Box {props.titleBox}</h4>
+            <TextField
+                  autoComplete="given-name"
+                  name={props.title}
+                  fullWidth
+                  id="title"
+                  label="Title"
+                  autoFocus
+                  onChange={e=>setTitulo(e.target.value)}
+                />
+                <TextField
+                  autoComplete="given-name"
+                  name={props.body}
+                  fullWidth
+                  id="body"
+                  label="Body"
+                  autoFocus
+                  onChange={e=>setCuerpo(e.target.value)}
+                />
+                <TextField
+                  autoComplete="given-name"
+                  name={props.img}
+                  fullWidth
+                  id="img"
+                  label="Img"
+                  autoFocus
+                  onChange={e=>setLink(e.target.value)}
+                />
+                <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Edit
+            </Button>
+            </Box>
         </div>
     );
 }

@@ -94,7 +94,7 @@ export default function Mantenimiento() {
 
   return (
     <TableContainer component={Paper}>
-        <Button onClick={()=>nuevoCategoria()}>Add Product</Button> 
+        <Button onClick={()=>nuevoCategoria()}>Añadir Categoria</Button> 
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>

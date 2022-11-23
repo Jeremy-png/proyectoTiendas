@@ -1,5 +1,6 @@
 import CommentForm from "./commentForm";
 import React,{useState} from "react";
+import axios from 'axios';
 
 
 const Comment = 
@@ -26,35 +27,97 @@ const Comment =
     const [likeactive, setlikeactive] = useState(false);
     const [dislikeactive, setdislikeactive] = useState(false);
 
+
+    const [rankingCreado, setRankingCreado] = React.useState();
+
     function likef(){
-        if(likeactive){
-            setlikeactive(false)
-            setlike(like-1)
-        }else {
-            setlikeactive(true)
-            setlike(like+1)
-            if(dislikeactive){
-                setdislikeactive(false)
-                setlike(like+1)
-                setdislike(dislike-1)
-            }
-        }
+        const dataEnviar = {
+            userID: localStorage.getItem("id_usuario"),
+            itemID: comment.id,
+            rating: 1
+          };
+
+          axios.post('http://localhost/proyectoTiendas/likeComment.php', dataEnviar)
+          .then((response)=> {
+              console.log(response)
+              if(response.data != 1){
+                alert("Error: Solo puede valorar el comentario una vez");
+              }
+          })
+          .catch((response)=> {
+              console.log(response);
+              alert("Error: Solo puede valorar el comentario una vez");
+          });
+
+          axios.get("http://localhost/proyectoTiendas/getLikes.php?id_comment="+comment.id+"&like=1")
+          .then(response=>{
+            console.log(response.data);
+            setlike(response.data.likes);
+            
+            
+          }).catch(error=>{
+            console.log(error);
+          });
     };
 
     function dislikef(){
-        if(dislikeactive){
-            setdislikeactive(false)
-            setdislike(dislike-1)
-        }else {
-            setdislikeactive(true)
-            setdislike(dislike+1)
-            if(likeactive){
-                setdislikeactive(false)
-                setdislike(dislike+1)
-                setlike(like-1)
-            }
-        }
+        const dataEnviar = {
+            userID: localStorage.getItem("id_usuario"),
+            itemID: comment.id,
+            rating: 0
+          };
+
+          axios.post('http://localhost/proyectoTiendas/likeComment.php', dataEnviar)
+          .then((response)=> {
+              console.log(response)
+              if(response.data != 1){
+                alert("Error: Solo puede valorar el comentario una vez");
+              }
+          })
+          .catch((response)=> {
+              console.log(response);
+              alert("Error: Solo puede valorar el comentario una vez");
+          });
+
+          axios.get("http://localhost/proyectoTiendas/getLikes.php?id_comment="+comment.id+"&like=0")
+          .then(response=>{
+            console.log(response.data);
+            setdislike(response.data.likes);
+           
+            
+          }).catch(error=>{
+            console.log(error);
+          });
     };
+
+
+React.useEffect(() => {
+
+
+    axios.get("http://localhost/proyectoTiendas/getLikes.php?id_comment="+comment.id+"&like=1")
+      .then(response=>{
+        console.log(response.data);
+        setlike(response.data.likes);
+        
+      }).catch(error=>{
+        console.log(error);
+      });
+
+
+      axios.get("http://localhost/proyectoTiendas/getLikes.php?id_comment="+comment.id+"&like=0")
+      .then(response=>{
+        console.log(response.data);
+        setdislike(response.data.likes);
+        
+      }).catch(error=>{
+        console.log(error);
+      });
+
+    
+      //console.log("Tienda: "+tienda.id);
+
+    }, []);
+
 const isReplying =
         activeComment &&
         activeComment.type === "replying" &&

@@ -48,7 +48,12 @@ export default function RegistroProductos() {
 
 
     const nuevoProducto = () => {
+      if(localStorage.getItem('tienda')==0)  {
+        alert("Solo puede añadir un producto si es empleado de una tienda");
+      }else{
         setOpenN(true);
+      }
+       
       };
 
       const handleCloseN = () => {
@@ -86,7 +91,7 @@ export default function RegistroProductos() {
         "img2": data.get('img2'),
         "img3": data.get('img3'),
         "img1": data.get('img1'),
-        "idTienda": tienda.id,
+        "idTienda": localStorage.getItem("tienda"),
         "categorias": selected,
         "id": localStorage.getItem("usuario")
 
@@ -107,7 +112,7 @@ export default function RegistroProductos() {
       "img2": data.get('img2'),
       "img3": data.get('img3'),
       "img1": data.get('img1'),
-      "idTienda": tienda.id,
+      "idTienda": localStorage.getItem('tienda'),
       "categorias": selected
 
     };
@@ -135,6 +140,8 @@ export default function RegistroProductos() {
       .then(response=>{
         console.log(response.data);
         setTienda(response.data);
+        //localStorage.setItem("tienda",response.data.id)
+        
         
       }).catch(error=>{
         console.log(error);

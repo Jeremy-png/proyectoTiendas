@@ -12,7 +12,7 @@ $method = $_SERVER['REQUEST_METHOD'];
     session_start();    
     $mysqli->set_charset('utf8');
 
-    $sql = "SELECT * FROM tiendas limit 5; ";
+    $sql = "SELECT tiendas.*, AVG(ratingtienda.rating) promedio FROM tiendas inner join ratingtienda on tiendas.id = ratingtienda.tiendaID group by ratingtienda.tiendaID order by AVG(ratingtienda.rating) limit 5; ";
   
     if ($method == 'GET'){
     $result = mysqli_query($mysqli,$sql);

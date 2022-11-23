@@ -92,7 +92,7 @@ export default function Tiendas() {
               </TableCell>
               <TableCell align="right">{ro.nombre}</TableCell>
               <TableCell align="right">{ro.id_usuario}</TableCell>
-              <TableCell align="right">{ro.ubicacion}</TableCell>
+              <TableCell align="right">{ro.longitud + ", " + ro.latitud }</TableCell>
               <TableCell align="right">{ro.link}</TableCell>
               <TableCell align="right">{ro.telefono}</TableCell>
               <TableCell align="right">{ro.descripcion}</TableCell>
@@ -106,5 +106,5 @@ export default function Tiendas() {
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  );
 }

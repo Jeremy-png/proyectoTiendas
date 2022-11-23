@@ -1,16 +1,28 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
 import EditBoxHome from "../EditBoxHome/EditBoxHome";
+import axios from "axios";
 
 export default function EditHome() {
   const handleSubmitInfo = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const dataEnviar = {
-      email: data.get('title'),
-      password: data.get('body'),
+      title: data.get('title'),
+      body: data.get('body'),
     };
    console.log(dataEnviar); 
+
+   const url = "http://localhost/proyectoTiendas/cargaMasiva.php";
+       
+        axios.post(url, dataEnviar)
+        .then((response)=> {
+            console.log(response);
+           
+        })
+        .catch((response)=> {
+            console.log(response);
+        });
   };
 
   const handleSubmitIMG = (event) => {
@@ -56,28 +68,7 @@ export default function EditHome() {
             </Button>
             </Box>
 
-            <Box component="form" onSubmit={handleSubmitIMG} noValidate  sx={{ mt: 3 }} style={{
-                "padding":"2%",
-                "border":"2px #CCC solid",
-                "border-radius": "5px",
-                "width": "40%",
-                "margin": "2%"
-            }}>
-                <Typography gutterBottom variant="h4" component="div"> Images</Typography>
-                <label for="file">Img1: </label><input style={{"width": "90%"}} name="img1" type="text"/><br/>
-                <label for="file">Img2: </label><input style={{"width": "90%"}} name="img2" type="text"/><br/>
-                <label for="file">Img3: </label><input style={{"width": "90%"}} name="img3" type="text"/><br/>
-                <label for="file">Img4: </label><input style={{"width": "90%"}} name="img4" type="text"/><br/>
-                <label for="file">Img5: </label><input style={{"width": "90%"}} name="img5" type="text"/><br/>
-                <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Edit
-            </Button>
-            </Box>
+            
           
         </div>
         <div style={{
@@ -109,12 +100,12 @@ export default function EditHome() {
           img="img4"
           / >
           <EditBoxHome 
-          titleBox="1"
+          titleBox="5"
           title= "title5"
           body="body5"
           img="img5"
           / >
         </div>
-        </div>
-    );
+        </div>
+    );
 }

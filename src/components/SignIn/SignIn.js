@@ -11,6 +11,8 @@ import { LoginContext } from '../../context/contexto';
 import {useContext, useState, useEffect} from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import './../SignIn/signin.css';
+import emailjs from '@emailjs/browser';
 
 
 
@@ -27,6 +29,18 @@ export default function SignIn() {
     } = useContext(LoginContext);
 
     const history = useHistory();
+
+    const [open, setOpen]=useState(false);
+    const [correo, setCorreo]=useState('');
+
+
+    
+  const  handleRest = (event) =>{
+    emailjs.send("service_anoqq7g","template_dkcgv38",{
+      to_name: correo,
+      reply_to: "caceres191453@unis.edu.gt",
+    },"NZQzHmJIncXZui78F");
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -52,6 +66,17 @@ export default function SignIn() {
   .catch(function (response) {
 
   });
+
+
+  axios.get('http://localhost/proyectoTiendas/getTiendaUsuario.php?correo='+data.get('email'))
+  .then(response=>{
+   
+    localStorage.setItem('tienda', response.data.tienda);
+    
+  }).catch(error=>{
+    console.log(error);
+  });
+  
 
   };
 
@@ -105,7 +130,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href='#' onClick={e=>setOpen(true)}>
                   Forgot password?
                 </Link>
               </Grid>
@@ -114,10 +139,32 @@ export default function SignIn() {
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
+              
             </Grid>
+            <div  id={open?"yes":"not"}>
+                <TextField
+                onChange={e=>setCorreo(e.target.value)}
+                margin="normal"
+                required
+                fullWidth
+                id="new-email"
+                label="Email Address"
+                name="new-email"
+                autoComplete="email"
+                autoFocus
+              />
+               <Button
+              onClick={handleRest}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Restablecer Contraseña
+            </Button>
+            </div>
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
-  );
+  );
 }

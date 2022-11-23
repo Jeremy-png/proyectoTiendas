@@ -23,6 +23,11 @@ import AprobarProductos from "../components/ApproveProduct/ApproveProduct";
 import CatalogoTiendas from "../components/CatalogoTiendas/CatalogoTiendas";
 import PaginaTienda from "../components/PaginaTienda/PaginaTienda";
 import AprobarComentarios from "../components/AprobarComentario/AprobarComentarios";
+import Reportes from "../components/Reportes/Reportes";
+import AprobarTienda from "../components/AprobarTienda/AprobarTienda";
+import Restablecer from "../components/NuevaPassword/NuevaPassword";
+import CargaMasiva from "../components/CargaMasiva/CargaMasiva";
+
 export default function AppRouter(){
     
     const{
@@ -35,71 +40,71 @@ export default function AppRouter(){
         <Router>
             {tipoUsuario == 1 ?
             <Switch>
-                <Route path = "/home" component={Home}/>
-                <Route path = "/registroTienda" component={RegistroTienda}/>
-                <Route path = "/users" component={Users}/>
-                <Route path = "/tiendas" component={Tiendas}/>
-                <Route path = "/productos" component={RegistroProductos}/>
-                <Route path = "/mantenimiento" component={Mantenimiento}/>
-                <Route path = "/editHome" component={EditHome}/>
-                <Route path = "/catalogoProductos" component={CatalogoProductosPage}/>
-                <Route path = "/showProduct/:id" component={ShowProductPage}/>
-                <Route path = "/aprobarProductos" component={AprobarProductos}/>
-                <Route path = "/catalogoTiendas" component={CatalogoTiendas}/>
-                <Route exact path = "/showTienda/:id" component={PaginaTienda}/>
-                <Route exact path = "/aprobarComentarios" component={AprobarComentarios}/>
-                <Redirect path = "*" to = "/home"/>
+            <Route path = "/home" component={Home}/>
+            <Route path = "/registroTienda" component={RegistroTienda}/>
+            <Route path = "/users" component={Users}/>
+            <Route path = "/tiendas" component={Tiendas}/>
+            <Route path = "/signIn" component={SignIn}/>
+            <Route path = "/signUp" component={SignUp}/>
+            <Route path = "/productos" component={RegistroProductos}/>
+            <Route path = "/editHome" component={EditHome}/>
+            <Route path = "/mantenimiento" component={Mantenimiento}/>
+            <Route path = "/catalogoProductos" component={CatalogoProductosPage}/>
+            <Route path = "/showProduct/:id" component={ShowProductPage}/>
+            <Route path = "/aprobarProductos" component={AprobarProductos}/>
+            <Route path = "/catalogoTiendas" component={CatalogoTiendas}/>
+            <Route exact path = "/showTienda/:id" component={PaginaTienda}/>
+            <Route exact path = "/aprobarComentarios" component={AprobarComentarios}/>
+            <Route exact path = "/reportes" component={Reportes}/>
+            <Route exact path = "/aprobarTienda" component={AprobarTienda}/>
+            <Route exact path = "/restablecer" component={Restablecer}/>
+            <Route exact path = "/cargaMasiva" component={CargaMasiva}/>
+            <Redirect path = "*" to = "/home"/>
+
             </Switch> :
 
             tipoUsuario == 2?
             <Switch>
             <Route path = "/home" component={Home}/>
-            <Route path = "/registroTienda" component={RegistroTienda}/>
             <Route path = "/tiendas" component={Tiendas}/>
             <Route path = "/productos" component={RegistroProductos}/>
-            <Route path = "/mantenimiento" component={Mantenimiento}/>
             <Route path = "/editHome" component={EditHome}/>
+            <Route path = "/mantenimiento" component={Mantenimiento}/>
             <Route path = "/catalogoProductos" component={CatalogoProductosPage}/>
             <Route path = "/showProduct/:id" component={ShowProductPage}/>
             <Route path = "/aprobarProductos" component={AprobarProductos}/>
+            <Route path = "/catalogoTiendas" component={CatalogoTiendas}/>
             <Route exact path = "/showTienda/:id" component={PaginaTienda}/>
             <Route exact path = "/aprobarComentarios" component={AprobarComentarios}/>
+            <Route exact path = "/reportes" component={Reportes}/>
+            <Route exact path = "/aprobarTienda" component={AprobarTienda}/>
+            <Route exact path = "/restablecer" component={Restablecer}/>
             <Redirect path = "*" to = "/home"/>
+
         </Switch> :
         tipoUsuario == 3?
         <Switch>
         <Route path = "/home" component={Home}/>
         <Route path = "/registroTienda" component={RegistroTienda}/>
-        <Route path = "/productos" component={RegistroProductos}/>
-        <Route path = "/mantenimiento" component={Mantenimiento}/>
-        <Route path = "/editHome" component={EditHome}/>
         <Route path = "/catalogoProductos" component={CatalogoProductosPage}/>
         <Route path = "/showProduct/:id" component={ShowProductPage}/>
-        <Route path = "/aprobarProductos" component={AprobarProductos}/>
         <Route path = "/catalogoTiendas" component={CatalogoTiendas}/>
         <Route exact path = "/showTienda/:id" component={PaginaTienda}/>
-        <Route exact path = "/aprobarComentarios" component={AprobarComentarios}/>
+        <Route exact path = "/restablecer" component={Restablecer}/>
         <Redirect path = "*" to = "/home"/>
         
     </Switch> :
      <Switch>
                 <Route path = "/home" component={Home}/>
-                <Route path = "/registroTienda" component={RegistroTienda}/>
-                <Route path = "/users" component={Users}/>
-                <Route path = "/tiendas" component={Tiendas}/>
                 <Route path = "/signIn" component={SignIn}/>
                 <Route path = "/signUp" component={SignUp}/>
-                <Route path = "/productos" component={RegistroProductos}/>
-                <Route path = "/editHome" component={EditHome}/>
-                <Route path = "/mantenimiento" component={Mantenimiento}/>
                 <Route path = "/catalogoProductos" component={CatalogoProductosPage}/>
                 <Route path = "/showProduct/:id" component={ShowProductPage}/>
-                <Route path = "/aprobarProductos" component={AprobarProductos}/>
                 <Route path = "/catalogoTiendas" component={CatalogoTiendas}/>
                 <Route exact path = "/showTienda/:id" component={PaginaTienda}/>
-                <Route exact path = "/aprobarComentarios" component={AprobarComentarios}/>
+                <Route exact path = "/restablecer" component={Restablecer}/>
                 <Redirect path = "*" to = "/home"/>
-                    
+
             </Switch>
             }
         </Router>

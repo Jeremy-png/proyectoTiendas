@@ -24,8 +24,6 @@ $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'GET') {
         if ($count == 1){
             $resultados = mysqli_fetch_assoc($result);
-           
-
             echo json_encode($resultados);
         }else{
             echo json_encode(array('id'=>0));

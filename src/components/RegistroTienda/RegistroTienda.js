@@ -14,11 +14,34 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { MultiSelect } from "react-multi-select-component";
 
 
 const theme = createTheme();
 
 export default function RegistroTienda() {
+  
+
+  const [options, setOptions] = useState([]);
+  const [selected, setSelected] = useState([]);
+
+
+  React.useEffect(() => {
+    axios.get("http://localhost/proyectoTiendas/categoriasTiendas.php")
+      .then(response=>{
+        console.log(response.data);
+        setOptions(response.data);
+        
+      }).catch(error=>{
+        console.log(error);
+      });
+
+    
+      //console.log("Tienda: "+tienda.id);
+
+    }, []);
+
 
   const handleSubmit = (event) => {
     //console.log ('hola');
@@ -32,13 +55,16 @@ export default function RegistroTienda() {
       telefono: data.get('telefono'),
       descripcion: data.get('descripcion'),
       logotipo: data.get('logotipo'),
+      zona: data.get('zona'),
+      municipio: data.get('municipio'),
+      departamento: data.get('departamento'),
       id_usuario: localStorage.getItem('id_usuario'),
+      categorias: selected,
     }
-    axios({
-      method: 'post',
-      url: 'http://localhost/proyectoTiendas/registrotiendas.php',
-      data: dataEnviar
-    })
+
+    axios.post('http://localhost/proyectoTiendas/registrotiendas.php', dataEnviar).then(response => console.log(response));
+  
+    
   };
 
   return (
@@ -135,6 +161,47 @@ export default function RegistroTienda() {
               autoComplete="logotipo"
             />
           </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name="zona"
+              label="Zona"
+              type="number"
+              id="zona"
+              autoComplete="Zona"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name="departamento"
+              label="Departamento"
+              type="text"
+              id="departamento"
+              autoComplete="departamento"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name="municipio"
+              label="Municipio"
+              type="text"
+              id="muinicipio"
+              autoComplete="municipio"
+            />
+          </Grid>
+          <Grid item xs={12}>
+          <MultiSelect
+              options={options}
+              value={selected}
+              onChange={setSelected}
+              labelledBy="Seleccionar"
+            />
+            </Grid>
             </Grid>
             <Button
               type="submit"

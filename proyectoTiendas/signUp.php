@@ -17,7 +17,7 @@ $method = $_SERVER['REQUEST_METHOD'];
     $correo = $dataObject-> correo;
     $contrasena = $dataObject-> contrasena;
 
-    $sql = "INSERT INTO `usuarios`  VALUES ('1', '$firstName', '$lastName', '$correo', '$contrasena', '3');";
+    $sql = "INSERT INTO `usuarios` (`firstName`, `lastName`, `correo`, `contrasena`, `id_tipousuario`) VALUES ('$firstName', '$lastName', '$correo', '$contrasena', '3');";
   
     echo $sql;
     if ($method == 'POST'){

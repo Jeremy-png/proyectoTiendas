@@ -13,6 +13,7 @@ import { Box } from '@mui/system';
 import axios from 'axios';
 import HomeBox from '../HomeBox/HomeBox';
 import InfoBox from './InfoBox/InfoBox';
+import CargaMasiva from '../CargaMasiva/CargaMasiva';
 
 
 
@@ -74,6 +75,11 @@ export default function Home () {
   const [datos, setDatos] = React.useState([[]]);
   const [tiendas, setTiendas] = React.useState([[]]);
   const [prods, setProds] = React.useState([[]]);
+  const [box1, setBox1] = React.useState([]);
+  const [box2, setBox2] = React.useState([]);
+  const [box3, setBox3] = React.useState([]);
+  const [box4, setBox4] = React.useState([]);
+  const [box5, setBox5] = React.useState([]);
   
   React.useEffect(() => {
     axios.get("http://localhost/proyectoTiendas/homepage.php")
@@ -97,6 +103,52 @@ export default function Home () {
     axios.get("http://localhost/proyectoTiendas/getProductosNuevos.php")
     .then(response=>{
       setProds(response.data);
+      console.log(datos);
+      
+    }).catch(error=>{
+      console.log(error);
+    });
+
+
+    axios.get("http://localhost/proyectoTiendas/homeBox.php?id=1")
+    .then(response=>{
+      setBox1(response.data);
+      console.log(datos);
+      
+    }).catch(error=>{
+      console.log(error);
+    });
+
+    axios.get("http://localhost/proyectoTiendas/homeBox.php?id=2")
+    .then(response=>{
+      setBox2(response.data);
+      console.log(datos);
+      
+    }).catch(error=>{
+      console.log(error);
+    });
+
+    axios.get("http://localhost/proyectoTiendas/homeBox.php?id=3")
+    .then(response=>{
+      setBox3(response.data);
+      console.log(datos);
+      
+    }).catch(error=>{
+      console.log(error);
+    });
+
+    axios.get("http://localhost/proyectoTiendas/homeBox.php?id=4")
+    .then(response=>{
+      setBox4(response.data);
+      console.log(datos);
+      
+    }).catch(error=>{
+      console.log(error);
+    });
+
+    axios.get("http://localhost/proyectoTiendas/homeBox.php?id=5")
+    .then(response=>{
+      setBox5(response.data);
       console.log(datos);
       
     }).catch(error=>{
@@ -137,33 +189,33 @@ export default function Home () {
                 display: "flex"
             }}>
                 <HomeBox 
-                title={homeBox['title']}
-                body={homeBox['body']}
-                img={homeBox['img']}
+                title={box1.titulo}
+                body={box1.cuerpo}
+                img={box1.link}
                 />
 
                 <HomeBox 
-                title={homeBox2['title']}
-                body={homeBox2['body']}
-                img={homeBox2['img']}
+                title={box2.titulo}
+                body={box2.cuerpo}
+                img={box2.link}
                 />
 
                 <HomeBox 
-                title={homeBox3['title']}
-                body={homeBox3['body']}
-                img={homeBox3['img']}
+                title={box3.titulo}
+                body={box3.cuerpo}
+                img={box3.link}
                 />
 
                 <HomeBox 
-                title={homeBox4['title']}
-                body={homeBox4['body']}
-                img={homeBox4['img']}
+                title={box4.titulo}
+                body={box4.cuerpo}
+                img={box4.link}
                 />
 
                 <HomeBox 
-                title={homeBox5['title']}
-                body={homeBox5['body']}
-                img={homeBox5['img']}
+                title={box5.titulo}
+                body={box5.cuerpo}
+                img={box5.link}
                 />
                 
  
@@ -225,6 +277,7 @@ export default function Home () {
               Send Message
             </Button>
           </Box>
+        
             </div>
         );
 

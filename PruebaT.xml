@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datas>
+ <data>
+        <id_t>1</id_t>
+        <nombre>lll</nombre>
+        <longitud>111</longitud>
+        <latitud>1112</latitud>
+        <link>1111</link>
+        <telefono>1111</telefono>
+        <descripcion>Hola Gio</descripcion>
+        <fotologo>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg</fotologo>
+        <categoria>2</categoria>
+        <id_usuario>90</id_usuario>
+        <zona>2</zona>
+        <departamento>2</departamento>
+        <municipio>2</municipio>
+        <categoria>2</categoria>
+    </data>
+</datas>

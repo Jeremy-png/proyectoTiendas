@@ -1,5 +1,4 @@
-
- import * as React from 'react';
+import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -24,7 +23,7 @@ import { MenuItem, Select } from '@mui/material';
 import { MultiSelect } from "react-multi-select-component";
 import { LoginContext } from '../../context/contexto';
 
-
+import emailjs from '@emailjs/browser';
 
 
 export default function AprobarProductos() {
@@ -36,14 +35,67 @@ export default function AprobarProductos() {
 
 
 
+ const [idC, setIdC] = React.useState('');
+ const [usuarioR, setUsuarioR] = React.useState('');
+ const [em, setEm] = React.useState('');
+ const [motivo, setMotivo] = React.useState('');
+ const [openN, setOpenN] = React.useState(false);
 
-    const [open, setOpen] = React.useState(false);
-    const [openD, setOpenD] = React.useState(false);
-    const [openN, setOpenN] = React.useState(false);
-    const [selected, setSelected] = useState([]);
-    const [options, setOptions] = useState([]);
-    const [tienda, setTienda] = useState(null);
-    const [row, setRows]=useState([]);
+  const [row, setRows]=useState([]);
+
+  const rechazar = (tienda, id) => {
+   setOpenN(true);
+   setIdC(id);
+   //setUsuarioR(usuario);
+
+   axios.get("http://localhost/proyectoTiendas/getUser.php?id="+tienda)
+   .then(response=>{
+    setUsuarioR(response.data.id_usuario);
+    axios.get("http://localhost/proyectoTiendas/getEmail.php?id="+response.data.id_usuario)
+      .then(response2=>{
+        console.log(response2.data);
+        setEm(response2.data.correo);
+        
+      }).catch(error=>{
+        console.log(error);
+      });
+     
+   }).catch(error=>{
+     console.log(error);
+   });
+
+   
+
+ };
+
+ const handleCloseN = () => {
+   setOpenN(false);
+
+ };
+ 
+
+ const aceptarRechazo = (usuario, id_tienda) => {
+   setOpenN(false);
+
+   emailjs.send("service_anoqq7g","template_c17c7a8",{
+    to_name: "Usuario: "+usuarioR,
+    message: "Le informamos que los cambios realizados a su producto fueron rechazados, por el siguiente motivo: "+ motivo,
+    to_email: em,
+    reply_to: "caceres191453@unis.edu.gt",
+  },"NZQzHmJIncXZui78F");
+
+   const datos = {
+     "usuario": usuarioR,
+     "empleado": localStorage.getItem("id_usuario"),
+     "razon": motivo,
+     "contenido": 'p',
+     "id": idC
+   };
+   console.log(datos);
+
+   axios.post('http://localhost/proyectoTiendas/nuevoRechazo.php',datos).then(response => console.log(response));
+
+ };
 
 
 
@@ -51,9 +103,32 @@ export default function AprobarProductos() {
 
   
 
-  const aprobar = (usuario) => {
+  const aprobar = (usuario, tienda) => {
     console.log(usuario);
     localStorage.setItem('usuario', usuario);
+
+    axios.get("http://localhost/proyectoTiendas/getUser.php?id="+tienda)
+   .then(response=>{
+    setUsuarioR(response.data.id_usuario);
+    axios.get("http://localhost/proyectoTiendas/getEmail.php?id="+response.data.id_usuario)
+      .then(response2=>{
+        console.log(response2.data);
+        setEm(response2.data.correo);
+
+        emailjs.send("service_anoqq7g","template_c17c7a8",{
+          to_name: "Usuario: "+usuarioR,
+          message: "Le informamos que los cambios realizados a su producto fueron aprobados",
+          to_email: response2.data.correo,
+          reply_to: "caceres191453@unis.edu.gt",
+        },"NZQzHmJIncXZui78F");
+        
+      }).catch(error=>{
+        console.log(error);
+      });
+     
+   }).catch(error=>{
+     console.log(error);
+   });
 
     const datos = {
         "id": usuario
@@ -106,6 +181,29 @@ export default function AprobarProductos() {
               key={ro.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
+               <Dialog
+            open={openN}
+            onClose={handleCloseN}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+        <Box component="form" noValidate  sx={{ mt: 3 }}>
+        <DialogTitle id="alert-dialog-title">
+          {"Rechazar Comentario"}
+        </DialogTitle>
+        
+        <DialogContent>
+            <h4>ID: {idC}</h4>
+            <h4>Email: {em}</h4>
+            <h4>Razón del rechazo: </h4>
+            <TextField id="outlined-basic" variant="outlined" name="razon" onChange={e=>setMotivo(e.target.value)}/> <br/>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={e=>aceptarRechazo(ro.id_usuario, ro.id)} > Rechazar</Button>
+                <Button onClick={handleCloseN}>Cerrar</Button>
+            </DialogActions>
+            </Box>
+        </Dialog>
               <TableCell component="th" scope="row">
                 {ro.id}
               </TableCell>
@@ -113,7 +211,8 @@ export default function AprobarProductos() {
               <TableCell align="right">{ro.precio}</TableCell>
               <TableCell align="right">{ro.descripcion}</TableCell>
               <TableCell align="right">{ro.categorias}</TableCell>
-              <TableCell align="right"> <Button variant="contained"  onClick={()=>aprobar(ro.id)}>Aprobar Cambios</Button> </TableCell>
+              <TableCell align="right"> <Button variant="contained"  onClick={()=>aprobar(ro.id, ro.id_tienda)}>Aprobar Cambios</Button> </TableCell>
+              <TableCell align="right"> <Button variant="contained"  onClick={()=>rechazar(ro.id_tienda, ro.id)}>Rechazar Cambios</Button> </TableCell>
             </TableRow>
             
           ))}

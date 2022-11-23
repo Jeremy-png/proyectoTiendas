@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import * as React from 'react';
 import { useState } from 'react';
@@ -58,6 +57,8 @@ export default function PaginaTienda() {
                 <h4><b>Decripcion:</b></h4>
                 <p>{tienda.descripcion}</p>
                 <p><b>Rating de la tienda: </b>{rating['avg(rating)']} <b>estrellas</b></p>
+                <h4><b>Ubicación:</b></h4>
+                <p>{tienda.municipio + ", "+ tienda.departamento + ", Zona: "+ tienda.zona}</p>
             </div>
         </div>
             <div>
